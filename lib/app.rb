@@ -1,7 +1,6 @@
 require 'idea_box'
 
 class IdeaBoxApp < Sinatra::Base
-
   set :method_override, true
   set :root, 'lib/app'
 
@@ -15,6 +14,7 @@ class IdeaBoxApp < Sinatra::Base
 
   get '/' do   #IdeaStore.all is an array is an array of idea objects, we sort them on rank with .sort
     erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new(params)}   #so we send to index a sorted list of ideas from high to low
+
   end
 
   post '/' do
