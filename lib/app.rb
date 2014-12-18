@@ -1,4 +1,6 @@
-require 'idea_box'
+require 'idea_box/idea'
+require 'idea_box/tag_store'
+require 'idea_box/idea_store'
 
 class IdeaBoxApp < Sinatra::Base
   set :method_override, true
@@ -13,7 +15,13 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   get '/' do   #IdeaStore.all is an array is an array of idea objects, we sort them on rank with .sort
-    erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new(params)}   #what is params here?
+    all_ideas = IdeaStore.all.sort
+
+    erb :index, locals: {
+      ideas: all_ideas,
+      idea: Idea.new(params),
+      tags: TagStore.all
+    }   #what is params here?
 
   end
 
@@ -46,7 +54,7 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   get '/:tag/tags' do |tag|
-    erb :tag_view, locals: {tag: tag, ideas: IdeaStore.all}
+    erb :tag_view, locals: {tag: tag, ideas: TagStore.ideas_for(tag)}
   end
 
 end

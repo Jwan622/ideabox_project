@@ -13,6 +13,10 @@ class Idea
 
   end
 
+  def formatted_time
+    time.strftime("%A, %b %d %I:%M")
+  end
+
   def save
     IdeaStore.create(to_h)
   end
