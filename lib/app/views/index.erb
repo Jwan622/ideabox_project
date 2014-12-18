@@ -40,10 +40,10 @@
 
 <ul>
   <% tags = ideas.map {|idea| idea.tag}.uniq %>
-  <% tags.each do |log| %>
+  <% tags.each do |tag| %>
   <li>
-    <form action='/<%= log %>/tags' method="GET">
-      <input type="submit" value="<%= log %>"/>
+    <form action='/<%= tag %>/tags' method="GET">
+      <input type="submit" value="<%= tag %>"/>
     </form>
 
   </li>
