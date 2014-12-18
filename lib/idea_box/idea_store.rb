@@ -49,9 +49,10 @@ class IdeaStore
     end
   end
 
-  def self.create(data)
+  def self.create(data, time) #data here is just a hash, the value of idea
     database.transaction do
-      database['ideas'] << data
+      database['ideas'] << data.merge({"time" => time})
     end
   end
+
 end

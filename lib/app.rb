@@ -13,12 +13,13 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   get '/' do   #IdeaStore.all is an array is an array of idea objects, we sort them on rank with .sort
-    erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new(params)}   #so we send to index a sorted list of ideas from high to low
+    erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new(params)}   #what is params here?
 
   end
 
   post '/' do
-    IdeaStore.create(params[:idea])
+    IdeaStore.create(params[:idea], Time.now)   #params[:idea] will be a an array with the keys as whatever is in the bracket within input/name= in the view.
+                                      #params is a nested hash. the key is the first part of input/name in the view.
     redirect '/'
   end
 
@@ -42,6 +43,10 @@ class IdeaBoxApp < Sinatra::Base
     idea.like!
     IdeaStore.update(id.to_i, idea.to_h)
     redirect '/'
+  end
+
+  get '/:tag/tags' do |tag|
+    erb :tag_view, locals: {tag: tag, ideas: IdeaStore.all}
   end
 
 end

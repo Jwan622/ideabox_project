@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>TagView</title>
+</head>
+<body>
+  <p>
+    These are all of the <%= tag %> items.
+    <hr> </hr>
+    <% ideas.each do |idea| %>
+    <% if idea.tag == tag %>
+      <%= idea.title %><br/>
+    <% end %>
+    <% end %>
+  </p>
+
+</body>
+</html>

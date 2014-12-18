@@ -1,33 +1,51 @@
 <h1>IdeaBox</h1>
+<div id="top_of_page">
 <form action='/' method='POST'>
   <p>
     Your Idea:
   </p>
   Idea Title: <input type='text' name='idea[title]'/><br/>
   Description: <textarea name='idea[description]'></textarea><br/>
-  Tag (categories of your idea)<input type="text" name="idea[tag]"/><br/>
+  Tag (categories of your idea): <input type="text" name="idea[tag]"/><br/>
   <input type='submit'/>
 </form>
+</div>
 
 <h3>Existing Ideas</h3>
 
 <ul>
-  <% ideas.each do |idea| %>
+  <% ideas.each do |idea| %> <!-- ideas is a bunch of Idea objects -->
   <li>
+
+    <strong> Title: </strong> <%= idea.title %><br/>
+    <strong> Description: </strong> <%= idea.description %><br/>
+    <strong> Tags: </strong> <%= idea.tag %> <br/>
+    <strong> Time: </strong> <%= idea.time %> <br/>
 
     <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
       <input type='submit' value="+"/>
     </form>
-    
-    <%= idea.title %><br/>
-    <%= idea.description %><br/>
-    <%= idea.tag %>
+
     <a href="/<%= idea.id %>/edit">Edit</a>
 
     <form action='/<%= idea.id %>' method='POST'>
       <input type="hidden" name="_method" value="DELETE">
       <input type='submit' value="delete"/>
     </form>
+  </li>
+  <% end %>
+</ul>
+
+<h3> Tags </h3>
+
+<ul>
+  <% tags = ideas.map {|idea| idea.tag}.uniq %>
+  <% tags.each do |log| %>
+  <li>
+    <form action='/<%= log %>/tags' method="GET">
+      <input type="submit" value="<%= log %>"/>
+    </form>
+
   </li>
   <% end %>
 </ul>
