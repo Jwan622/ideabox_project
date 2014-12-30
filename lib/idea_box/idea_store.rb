@@ -11,8 +11,7 @@ class IdeaStore
     @database
   end
 
-  def self.all   #this is just assigning ids to the hashes in the database. raw_ideas is an array of hashes. data.merge is taking the hash
-                  # and appending an id to the hash. We are now creating an Idea with an id.
+  def self.all   #this adds ids to the hash of data, and creates Idea objects with the updated hash. raw_ideas is an array of hashes. 
     ideas = []
     raw_ideas.each_with_index do |data, i|
       ideas << Idea.new(data.merge("id" => i))
@@ -32,12 +31,12 @@ class IdeaStore
     end
   end
 
-  def self.find(id)
+  def self.find(id)   #creates an Idea object using a raw_idea hash.
     raw_idea = find_raw_idea(id)
     Idea.new(raw_idea.merge("id" => id))
   end
 
-  def self.find_raw_idea(id)
+  def self.find_raw_idea(id)   #gets a hash from database using index of the hash
     database.transaction do
       database['ideas'].at(id)
     end

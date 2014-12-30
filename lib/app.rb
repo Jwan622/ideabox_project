@@ -31,8 +31,9 @@ class IdeaBoxApp < Sinatra::Base
     redirect '/'
   end
 
-  delete '/:id' do |id|
-    IdeaStore.delete(id.to_i)
+  delete '/:id' do |x|
+    IdeaStore.delete(x.to_i)
+    binding.pry
     redirect '/'
   end
 
